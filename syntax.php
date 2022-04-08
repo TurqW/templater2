@@ -263,11 +263,10 @@
 
         /**
          * Find all footnotes in $text
-         * DONE Manually strip the foot part
-         * DONE use $renderer->footnote_open(), $renderer->doc, $renderer->footnote_close() to add them to the primary document
-         * DONE Get the new number to use
-         * DONE Strip the just-added duplicate footnote clickers
-         * DONE Fix footnote numbers
+         * Manually strip the foot part
+         * decrement the renderer's footnote count by the number of found footnotes
+         * use $renderer->footnote_open(), $renderer->doc, $renderer->footnote_close() to add them to the primary document
+         * Strip the just-added duplicate footnote clickers from the primary document
          * Return the text, which is added to the doc elsewhere
          */
         function consolidate_footnotes($text, Doku_Renderer $renderer){
@@ -277,46 +276,31 @@
             $dom->loadHTML($text);
             $xpath = new DOMXpath($dom);
 
-            $footnoteIdsRaw = $xpath->query("//div[@class='footnotes']/div[@class='fn']/sup/a");
             $footnoteContentRaw = $xpath->query("//div[@class='footnotes']/div[@class='fn']/div");
 
-            foreach ($footnoteIdsRaw as $key => $idRaw) {
-                $id = substr($idRaw->nodeValue, 0, -1); //strip the )
-                $footnotes[$id] = $footnoteContentRaw[$key]->ownerDocument->saveHTML( $footnoteContentRaw[$key] );
+            // TODO: this doesn't handle duplicated footnotes within the template
+            foreach ($footnoteContentRaw as $content) {
+                $footnotes[] = $footnoteContentRaw[$key]->ownerDocument->saveHTML( $content );
             }
 
             if(count($footnotes) > 0) {
                 // Strips out the footnote footers
                 $text = preg_replace('!<div class="footnotes">.*?</div>.*</div>!s', '', $text);
-
-                // Prep footnote links for replacement
-                #$text = str_replace('fnt__', 'fnt__inner__', $text);
-                #$text = str_replace('fn__', 'fn__inner__', $text);
-                #$text = preg_replace('!"fn_top">(?=\d+[)]</a>)!', '"fn_top">inner__', $text);
                 
                 $doclen = strlen($renderer->doc);
                 Doku_Renderer_xhtml::$fnid -= count($footnotes);
 
-                foreach($footnotes as $id => $content) {
+                foreach($footnotes as $content) {
                     // Create the footnotes directly in the main doc
                     $renderer->footnote_open();
                     $renderer->doc .= $content;
                     $renderer->footnote_close();
-                    $footnotes[$id] = $renderer->fnid;
                     // Strip the just-added footnote references
                     $renderer->doc = substr($renderer->doc, 0, $doclen);
                 }
-
-                // Fix the footnote links in the 
-                #$text = str_replace(array_map($this->_prepend_footnote_replace, array_keys($footnotes)), array_values($footnotes), $text);
-
             }
 
             return $text;
-        }
-
-        function _prepend_footnote_replace($value) {
-            return "inner__".$value;
         }
     }
      
