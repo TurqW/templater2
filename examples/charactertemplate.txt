@@ -1,0 +1,20 @@
+<div infobox>
+=== @fullName@ ===
+
+{{ @image@ |}}
+
+^ Pronouns | @pronouns@ |
+^ Age | @age@ |
+^ Height | @height@ |
+^ Physique | @physique@ |
+
+----
+
+== Abilities ==
+@abilities@
+
+----
+
+== Relations ==
+@relations@
+</div>

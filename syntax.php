@@ -41,7 +41,7 @@
                 'email'  => 'tinman@mage.city',
                 'date'   => '2009-03-21',
                 'name'   => 'Templater2 Plugin',
-                'desc'   => 'Displays a wiki page (or a section thereof) within another, with user selectable replacements',
+                'desc'   => 'Displays a wiki page (or a section thereof) within another, with configured replacements',
                 'url'    => 'http://www.dokuwiki.org/plugin:templater',
             );
         }
@@ -82,7 +82,8 @@
             global $ID;
             // TODO: instead of a dumb split, grab all names and all values
             // Names: /(?<=[|]).*?(?=[=])/ trim whitespace
-            // Values: /((?<=[=])(?:(?=(\\?))\2.)+?(?=[&}\n]))|((["'])(?:(?=(\\?))\5[\s\S])+?\4)/ still trim whitespace *then* quotation marks
+            // Values: /((?<=[=])(?:(?=(\\?))\2.)+?(?=[&}\n]))|((["'])(?:(?=(\\?))\5[\s\S])+?\4)/
+            // still trim whitespace *then* quotation marks
             $match = substr($match,11,-2);                          // strip markup
             $replacers = preg_split('/(?<!\\\\)\&/', $match);       // Get the replacers
             $wikipage = array_shift($replacers);
@@ -146,7 +147,6 @@
 
                 $rawFile = preg_replace($left_overs,$DEFAULT_STR,$rawFile); 
                 
-                // TODO: I think I need to strip out footnotes here (manually convert them to superscripted links?), then put them back in after. Then populate the links? 
                 $instr = p_get_instructions($rawFile);
      
                 // filter section if given
@@ -253,9 +253,7 @@
                                     $r['vals'][] = trim(trim(str_replace('\|','|',$v)), "\"");
                             }
                     } else {
-                            // This is an assertion failure. We should NEVER get here.
-                            //die("FATAL ERROR!  Unknown type passed to syntax_plugin_templater::massageReplaceMentArray() can't massage syntax_plugin_templater::\$replacers!  Type is:".gettype($r)." Value is:".$r);
-                            $r['keys'] = null;
+                        // This is an assertion failure. We should NEVER get here.
                 		$r['vals'] = null;
                     }
                     return $r;
@@ -265,7 +263,7 @@
          * Find all footnotes in $text
          * Manually strip the foot part
          * decrement the renderer's footnote count by the number of found footnotes
-         * use $renderer->footnote_open(), $renderer->doc, $renderer->footnote_close() to add them to the primary document
+         * use $renderer's footnote_open(), doc, footnote_close() to add them to the primary document
          * Strip the just-added duplicate footnote clickers from the primary document
          * Return the text, which is added to the doc elsewhere
          */

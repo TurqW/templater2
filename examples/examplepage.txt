@@ -1,0 +1,23 @@
+====== Title ======
+
+{{template>:charactertemplate
+&fullName = Morpheus
+&image = :morpheus.png
+&pronouns = he/him
+&age = 38
+&height = 183cm
+&physique = Single line entries can be written without quotes.
+&abilities =
+"  * If a replacement variable is multiple lines and/or needs to start or end with whitespace, it will need quotation marks.
+  * The current version will treat an ampersand as the end of that variable; this is to be considered a bug, not a feature.
+  * Note that this example expects the Wrap plugin to be used. This will cause the "div infobox" tag to be turned into a div with class "wrap_infobox"; you can customize your CSS to handle that correctly.
+  * The variables here are inserted into the relevant locations in the template, then the entire text of the filled-out template is inserted into the page before rendering.
+    * This particular example is designed to be used with the [[doku>plugin:Wrap|Wrap]] plugin. This will cause the ''%%<div infobox>%%'' tag to be turned into ''%%<div class=wrap_infobox plugin_wrap>%%''
+    * The included ''templates.css'' should turn this into a floating infobox; if that's not needed or you have a different way of handling that, you may not need the Wrap plugin.
+  * Kung fu!"
+&relations =
+"  * Neo
+  * Trinity
+  * Etc"}}
+
+This is where the actual body of the page goes!

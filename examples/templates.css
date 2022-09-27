@@ -1,0 +1,78 @@
+/* This is just an example; feel free to customize to display infoboxes however you like. */
+.dokuwiki .wrap_infobox {
+    width: 30%;
+    float: right;
+    margin-left: 1.5em;
+    background-color: __background_neu__;
+    border-color: black;
+    color: __text_neu__;
+    border-radius: .5em;
+    border-width: .5em;
+    border-style: solid;
+    padding: .75em;
+}
+
+.dokuwiki .wrap_infobox h1,
+.dokuwiki .wrap_infobox h2,
+.dokuwiki .wrap_infobox h3,
+.dokuwiki .wrap_infobox h4,
+.dokuwiki .wrap_infobox h5 {
+	background-color: inherit;
+	border: none;
+	padding: 0;
+	text-align: center;
+}
+
+.dokuwiki .wrap_infobox ul {
+
+}
+
+.dokuwiki .wrap_infobox ul li {
+	margin: 0;
+	font-size: 80%;
+}
+
+.dokuwiki .wrap_infobox table {
+	width: 100%;
+	border: none;
+	font-size: 80%;
+}
+
+.dokuwiki .wrap_infobox th,
+.dokuwiki .wrap_infobox td {
+	background-color: inherit;
+	font-weight: inherit;
+	border: none;
+	padding: .1em .2em 0;
+}
+
+
+.dokuwiki .wrap_infobox th {
+	color: __text_neu__;
+}
+
+.dokuwiki .wrap_infobox .secedit button {
+	display: none;
+}
+
+.dokuwiki .wrap_infobox table tr:hover td {
+    background-color: inherit;
+    color: inherit;
+}
+.dokuwiki .wrap_infobox table tr:hover th {
+    background-color: inherit;
+    color: __text_neu__;
+}
+
+.dokuwiki .wrap_infobox img {
+    max-height:  15em;
+}
+
+.dokuwiki .wrap_infobox p, ul, ol, dl, pre, table, hr, blockquote, figure, details, fieldset, address {
+	margin-top: .5em;
+	margin-bottom: .5em;
+}
+
+.dokuwiki .wrap_infobox h5 {
+	margin: 0;
+}
