@@ -164,7 +164,7 @@
                                   '!<div class="category">.*?</div>!s');
                 $replace  = array('','','');
                 $text = preg_replace($patterns,$replace,$text);
-                $text = $this->consolidate_footnotes($text, $renderer);
+                // $text = $this->consolidate_footnotes($text, $renderer); See comments on this function below
      
                 // prevent caching to ensure the included page is always fresh
                 $renderer->info['cache'] = FALSE;
@@ -260,6 +260,10 @@
             }
 
         /**
+         * LEAVING THIS HERE FOR FUTURE REFACTORING BUT DON'T USE IT
+         * Requires https://github.com/splitbrain/dokuwiki/pull/3655 to work;
+         * without it, any page with a footnote is irretrievably broken
+         * 
          * Find all footnotes in $text
          * Manually strip the foot part
          * decrement the renderer's footnote count by the number of found footnotes
